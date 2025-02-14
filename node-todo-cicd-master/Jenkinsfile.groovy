@@ -9,11 +9,11 @@ pipeline {
                     if ! command -v docker &> /dev/null
                     then
                         echo "Docker not found. Installing Docker..."
-                        apt update
-                        apt install -y docker.io
-                        systemctl start docker
-                        systemctl enable docker
-                        usermod -aG docker jenkins
+                        sudo apt update
+                        sudo apt install -y docker.io
+                        sudo systemctl start docker
+                        sudo systemctl enable docker
+                        sudo usermod -aG docker jenkins
                         echo "Docker installed successfully."
                     else
                         echo "Docker is already installed."
@@ -35,10 +35,10 @@ pipeline {
             steps {
                 script {
                     dir('my_project') {
-                        sh 'apt install nodejs' 
-                        sh 'apt install npm'  
-                        sh 'npm install'
-                        sh 'node app.js'
+                        sh 'sudo apt install nodejs' 
+                        sh 'sudo apt install npm'  
+                        sh 'sudo npm install'
+                        sh 'sudo node app.js'
                     }
                 }
             }
