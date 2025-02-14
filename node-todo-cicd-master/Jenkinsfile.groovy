@@ -34,7 +34,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    dir('my_project') {
+                    dir('node-todo-cicd-master') {
                         sh 'sudo apt install nodejs' 
                         sh 'sudo apt install npm'  
                         sh 'sudo npm install'
@@ -47,7 +47,7 @@ pipeline {
         stage('Create Dockerfile') {
             steps {
                 script {
-                    dir('my_project') {
+                    dir('node-todo-cicd-master') {
                         writeFile file: 'Dockerfile', text: '''
 FROM node:12.2.0-alpine
 WORKDIR app
@@ -64,7 +64,7 @@ CMD ["node", "app.js"]
         stage('Build Docker Image') {
             steps {
                 script {
-                    dir('my_project') {
+                    dir('node-todo-cicd-master') {
                         sh "docker build -t todo-application ."
                     }
                 }
