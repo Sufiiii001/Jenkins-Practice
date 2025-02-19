@@ -30,13 +30,14 @@ pipeline {
                 }
             }
         }
-		stage('Cleanup git') {
-    steps {
-        script {
-            sh 'rm -rf * .git' // Remove all files and hidden .git folder
+
+        stage('Cleanup git') {
+            steps {
+                script {
+                    sh 'rm -rf * .git' // Remove all files and hidden .git folder
+                }
+            }
         }
-    }
-}
 
         stage('Clone Repository') {
             steps {
@@ -88,7 +89,18 @@ CMD ["node", "app.js"]
         stage('Run Container') {
             steps {
                 script {
-                    sh "sudo docker run -d --name node-todo-application -p 8081:8000 todo-application"
+                    sh '''
+                    # Check if container exists
+                    if [ $(sudo docker ps -aq -f name=node-todo-application) ]; then
+                        echo "Existing container found. Stopping and removing..."
+                        sudo docker stop node-todo-application || true
+                        sudo docker rm node-todo-application || true
+                    fi
+
+                    # Run new container
+                    echo "Starting a new container..."
+                    sudo docker run -d --name node-todo-application -p 8081:8000 todo-application
+                    '''
                 }
             }
         }
