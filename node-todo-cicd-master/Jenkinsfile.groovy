@@ -80,7 +80,7 @@ CMD ["node", "app.js"]
         stage('Run Container') {
             steps {
                 script {
-                    sh "sudo docker run -d --name node-todo-application -p 8000:8000 sufi001/todo-application:latest"
+                    sh "sudo docker run -d --name node-todo-application -p 9000:8000 sufi001/todo-application:latest"
                 }
             }
         }
