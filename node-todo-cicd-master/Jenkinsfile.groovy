@@ -73,8 +73,8 @@ CMD ["node", "app.js"]
                         sh "sudo docker tag todo-application sufi001/todo-application:latest"
 
                         withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', 
-                          usernameVariable: 'DOCKER_USER', 
-                          passwordVariable: 'DOCKER_PASS')]) {
+                          usernameVariable: 'sufii001', 
+                          passwordVariable: 'dckr_pat_Yltckzf1LwmjI-8Vu0i3ECSgo3I')]) {
                             sh "echo '$DOCKER_PASS' | sudo docker login -u '$DOCKER_USER' --password-stdin"
                         }
 
