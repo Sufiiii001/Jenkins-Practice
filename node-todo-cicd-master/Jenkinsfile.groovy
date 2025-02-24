@@ -71,6 +71,14 @@ CMD ["node", "app.js"]
                 script {
                     dir('node-todo-cicd-master') {
                         sh "sudo docker tag todo-application sufi001/todo-application:latest"
+
+                        withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDENTIALS', 
+                          usernameVariable: 'DOCKER_USER', 
+                          passwordVariable: 'DOCKER_PASS')]) {
+                            sh "echo '$DOCKER_PASS' | sudo docker login -u '$DOCKER_USER' --password-stdin"
+                        }
+
+                        
                         sh "sudo docker push sufi001/todo-application:latest"
                     }
                 }
